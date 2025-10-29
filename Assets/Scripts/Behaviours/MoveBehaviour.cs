@@ -22,7 +22,6 @@ public class MoveBehaviour : MonoBehaviour
             //(para que no este todo el rato para arriba)
             _rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
         }
-
     }
     private bool InFloor()
     {
