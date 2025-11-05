@@ -5,51 +5,19 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
 {
     [SerializeField] private MoveBehaviour _mb;
     private InputSystem_Actions inputActions;
-    public void OnAttack(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnCrouch(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
+    private Rigidbody2D _rb;
+    private Vector2 moveInput;
 
     public void OnJump(InputAction.CallbackContext context)
     {
         _mb.JumpCharacter();
     }
 
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void OnMove(InputAction.CallbackContext context)
     {
-        //Le pasamos el Vector dos para que tenga la 'x' y la 'y' del context
-        _mb.MoveCharacter(context.ReadValue<Vector2>());
+        moveInput = context.ReadValue<Vector2>();
     }
 
-    public void OnNext(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPrevious(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnSprint(InputAction.CallbackContext context)
-    {
-        throw new System.NotImplementedException();
-    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,7 +28,8 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
     // Update is called once per frame
     void Update()
     {
-
+        //Para mover el personaje 
+        _mb.MoveCharacter(moveInput);
     }
     private void Awake()
     {
