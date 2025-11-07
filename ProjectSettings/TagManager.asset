@@ -8,15 +8,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Spikes
   - Water
   - UI
   - Floor
   - Player
-  - 
-  - 
-  - 
-  - 
+  - BackgroundSun
+  - BackgroundSky
+  - BackgroundReflection
+  - BackgroundCloud
   - 
   - 
   - 
@@ -40,6 +40,24 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Sky
+    uniqueID: 3417804671
+    locked: 0
+  - name: Sun
+    uniqueID: 985099323
+    locked: 0
+  - name: Cloud
+    uniqueID: 778740031
+    locked: 0
+  - name: Reflection
+    uniqueID: 2633139965
+    locked: 0
+  - name: Player
+    uniqueID: 33967841
+    locked: 0
+  - name: Floor
+    uniqueID: 4269191813
     locked: 0
   m_RenderingLayers:
   - Default
