@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
 {
@@ -7,10 +9,18 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
     private InputSystem_Actions inputActions;
     private Rigidbody2D _rb;
     private Vector2 moveInput;
+    private Animator animator;
+    [SerializeField] private int lives = 3;
+    [SerializeField] private Transform respawnPoint;
+    [SerializeField] private TextMeshProUGUI livesText;
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        _mb.JumpCharacter();
+        if (context.started && _mb.IsGrounded())
+        {
+            animator.SetBool("isJumping", true);
+            _mb.JumpCharacter();
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -18,11 +28,54 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
         moveInput = context.ReadValue<Vector2>();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Spikes"))
+        {
+            TakeDamage(1);
+        }
+    }
+    public void TakeDamage(int damage)
+    {
+        lives -= damage;
+        UpdateLivesUI();
+
+        if (lives <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            Respawn();
+        }
+    }
+
+    private void GameOver()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
+
+    private void Respawn()
+    {
+        if(_rb.gravityScale < 0)
+        {
+            _mb.FlipGravity();
+        }
+        transform.position = respawnPoint.position;
+        _rb.linearVelocity = Vector2.zero;
+        // Puedes a�adir una animaci�n o efecto de respawn si quieres
+    }
+    private void UpdateLivesUI()
+    {
+        livesText.text = "Lives: " + lives;
+    }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        animator = GetComponent<Animator>();  
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -30,6 +83,10 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
     {
         //Para mover el personaje 
         _mb.MoveCharacter(moveInput);
+        _mb.FlipSprite(moveInput.x);
+        animator.SetBool("isJumping", false);
+        animator.SetFloat("xVelocity", Mathf.Abs(_rb.linearVelocityX));
+        animator.SetFloat("yVelocity", Mathf.Abs(_rb.linearVelocityY));
     }
     private void Awake()
     {
