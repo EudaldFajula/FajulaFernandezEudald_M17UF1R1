@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a49c9aa97d54d344880ece2c2886bed0
+guid: 064ecac01765c534fb6552e05f5aeb95
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3345773698836625575
-    second: Run 03_0
+      213: -427404151018760640
+    second: Idle 01_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Run 03_0
+      name: Idle 01_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 0
+        x: 2
+        y: 1
         width: 29
-        height: 25
+        height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9578ffd2c8c6191d0800000000000000
-      internalID: -3345773698836625575
+      spriteID: 046dffa603e811af0800000000000000
+      internalID: -427404151018760640
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 62285a4e7446a5b46a6ed6c5dcf7f58d
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Run 03_0: -3345773698836625575
+      Idle 01_0: -427404151018760640
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
