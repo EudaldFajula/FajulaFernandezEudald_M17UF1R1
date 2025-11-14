@@ -59,8 +59,14 @@ TagManager:
   - name: Enemy
     uniqueID: 1968412619
     locked: 0
+  - name: PalmTree
+    uniqueID: 2926426877
+    locked: 0
   - name: Floor
     uniqueID: 4269191813
+    locked: 0
+  - name: Turret
+    uniqueID: 2315478889
     locked: 0
   m_RenderingLayers:
   - Default
