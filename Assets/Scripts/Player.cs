@@ -38,6 +38,10 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
         {
             TakeDamage(1);
         }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Bullet"))
+        {
+            TakeDamage(1);
+        }
     }
     public void TakeDamage(int damage)
     {
