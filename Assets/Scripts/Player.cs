@@ -18,7 +18,6 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
     {
         if (context.started && _mb.IsGrounded())
         {
-            animator.SetBool("isJumping", true);
             _mb.JumpCharacter();
         }
     }
@@ -92,9 +91,9 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
         //Para mover el personaje 
         _mb.MoveCharacter(moveInput);
         _mb.FlipSprite(moveInput.x);
-        animator.SetBool("isJumping", false);
-        animator.SetFloat("xVelocity", Mathf.Abs(_rb.linearVelocityX));
-        animator.SetFloat("yVelocity", Mathf.Abs(_rb.linearVelocityY));
+        animator.SetBool("isJumping", !_mb.IsGrounded());
+        animator.SetFloat("xVelocity", Mathf.Abs(_rb.linearVelocity.x));
+        animator.SetFloat("yVelocity", _rb.linearVelocity.y);
     }
     private void Awake()
     {
