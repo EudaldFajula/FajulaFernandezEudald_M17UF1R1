@@ -19,20 +19,19 @@ public class Turret : MonoBehaviour
         {
             if (BulletStack.Count == 0)
             {
-                animator.Play("Shoot");
                 GameObject bull = Instantiate(bullet, initialPosition, Quaternion.identity);
                 bull.GetComponent<Bullet>()._spawner = this;
-                animator.Play("Idle");
             }
             else
             {
                 GameObject bull = BulletStack.Pop();
                 Debug.Log("Reusing enemy from stack");
                 //bull.SetActive(true);
-                //bUll.transform.position = transform.position;
+                //bull.transform.position = transform.position;
             }
 
             TimeSpan = Time.time + TimeBetweenBullets;
         }
+        animator.SetBool("Shoot", BulletStack.Count == 0);
     }
 }
