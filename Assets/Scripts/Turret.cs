@@ -23,7 +23,7 @@ public class Turret : MonoBehaviour
 
     void Fire()
     {
-        animator.SetTrigger("Shoot"); // Activar animación de disparo
+        animator.SetTrigger("Shoot"); //Activar animación de disparo
 
         GameObject bull;
         if (BulletStack.Count == 0)
@@ -44,7 +44,7 @@ public class Turret : MonoBehaviour
 
     IEnumerator ResetToIdle()
     {
-        yield return new WaitForSeconds(nextFireTime); // Ajusta según la duración de la animación "Shoot"
+        yield return new WaitForSeconds(nextFireTime); //Esperar la duración de la animación "Shoot"
         animator.Play("Idle");
     }
 }

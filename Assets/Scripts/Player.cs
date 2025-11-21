@@ -74,7 +74,7 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
     }
     private void UpdateLivesUI()
     {
-        livesText.text = "Lives: " + lives;
+        livesText.text = lives.ToString();
     }
 
 
