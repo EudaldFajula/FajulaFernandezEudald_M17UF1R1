@@ -1,4 +1,6 @@
+using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -13,13 +15,15 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
     [SerializeField] private int lives = 3;
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private TextMeshProUGUI livesText;
+    public static event Action UsePauseMenu = delegate { };
+    [SerializeField] public AudioSource audioJump;
 
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started && _mb.IsGrounded())
         {
-            animator.SetBool("isJumping", true);
             _mb.JumpCharacter();
+            audioJump.Play();
         }
     }
 
@@ -33,6 +37,18 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
         if (collision.gameObject.layer == LayerMask.NameToLayer("Spikes"))
         {
             TakeDamage(1);
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            TakeDamage(1);
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Bullet"))
+        {
+            TakeDamage(1);
+        }
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Win"))
+        {
+            SceneManager.LoadScene("WinScene");
         }
     }
     public void TakeDamage(int damage)
@@ -67,7 +83,7 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
     }
     private void UpdateLivesUI()
     {
-        livesText.text = "Lives: " + lives;
+        livesText.text = lives.ToString();
     }
 
 
@@ -84,9 +100,10 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
         //Para mover el personaje 
         _mb.MoveCharacter(moveInput);
         _mb.FlipSprite(moveInput.x);
-        animator.SetBool("isJumping", false);
-        animator.SetFloat("xVelocity", Mathf.Abs(_rb.linearVelocityX));
-        animator.SetFloat("yVelocity", Mathf.Abs(_rb.linearVelocityY));
+        animator.SetBool("isJumping", !_mb.IsGrounded());
+        animator.SetFloat("xVelocity", Mathf.Abs(_rb.linearVelocity.x));
+        animator.SetFloat("yVelocity", _rb.linearVelocity.y);
+        
     }
     private void Awake()
     {
@@ -96,12 +113,30 @@ public class Player : MonoBehaviour, InputSystem_Actions.IPlayerActions
         //Crear la variable _mb con el script de MoveBehaviour
         _mb = GetComponent<MoveBehaviour>();
     }
+    private void ControlInputs(bool enable)
+    {
+        if (enable)
+            inputActions.Disable();
+        else inputActions.Enable();
+    }
     private void OnEnable()
     {
         inputActions.Enable();
+        PauseController.PausePlayer += ControlInputs;
     }
     private void OnDisable()
     {
         inputActions.Disable();
+        PauseController.PausePlayer -= ControlInputs;
+    }
+    private void OnDestroy()
+    {
+        inputActions.Disable();
+        PauseController.PausePlayer -= ControlInputs;
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        UsePauseMenu.Invoke();
     }
 }
