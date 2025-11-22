@@ -24,6 +24,8 @@ public class PauseController : MonoBehaviour
     }
     public void MainMenu()
     {
+        Resume();
+        PausePlayer = delegate { };
         SceneManager.LoadScene("StartMenu");
     }
     public void OnUsePauseMenu()
